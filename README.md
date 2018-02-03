@@ -47,7 +47,9 @@ Course Outline
 This is a ten-week course.
 
 Week 1: Introduction: nearest neighbor, and a host of prediction problems
+
 Week 2: Probability basics and generative modeling
+
 Week 3: Linear algebra basics, the multivariate Gaussian, and more generative modeling
 Week 4: Linear regression and logistic regression
 Week 5: Optimization
