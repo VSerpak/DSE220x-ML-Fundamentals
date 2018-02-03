@@ -1,0 +1,271 @@
+{\rtf1\ansi\ansicpg1251\deff0\nouicompat\deflang1058{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 - Our very first concrete machine learning problem\par
+was classifying handwritten digits.\par
+This is an example of a prediction problem.\par
+What I want to do today is to take a step back\par
+and to talk about prediction problems\par
+in a slightly more general and abstract way.\par
+So, we'll begin with a few remarks\par
+about the difference between machine learning\par
+and algorithms,\par
+I'll then formalize the notion\par
+of a prediction problem\par
+and talk about a way in which we can organize this space,\par
+and finally, I'll end with a roadmap\par
+of the rest of this class.\par
+Okay, machine learning versus algorithms.\par
+So, in today's computer-driven world,\par
+two core technologies are machine learning\par
+and algorithms.\par
+What is the similarity or difference between these?\par
+Well, interestingly, it turns out\par
+that both fields have a common central goal\par
+and that is to develop procedures,\par
+little pieces of code,\par
+that exhibit the desired input/output functionality.\par
+In algorithms, for example,\par
+people have spent decades looking for good ways\par
+to find shortest paths in graphs.\par
+So, the input is a graph along with two nodes in it,\par
+and the desired output is the shortest path\par
+between those two nodes.\par
+An algorithm is a precise set of steps\par
+that leads from the input to the desired output.\par
+In machine learning,\par
+we also want to come up with procedures\par
+that go from an input to a desired output,\par
+but the sort of problems that we're dealing\par
+with are of a different nature\par
+so that it is very hard to list a precise set of steps\par
+that will get us to that output.\par
+Okay, so for example,\par
+let's say the input is the picture of an animal\par
+and the desired output is the name of the animal.\par
+What are some precise steps that will do this for us?\par
+It's hard to imagine,\par
+in fact, the problem isn't even precisely defined\par
+and so, rather than try and come up\par
+with the algorithm ourselves,\par
+what we do is to collect a whole bunch\par
+of XY examples of input/output pairs\par
+and then we ask the machine\par
+to figure out a mapping on its own.\par
+So, this is a prediction problem.\par
+There is an input space, we'll always call it X,\par
+for example, the space of all images of animals,\par
+and then there's an output space,\par
+for example, names of animals.\par
+We have in mind some\par
+desired mapping from inputs to outputs,\par
+but it's not something that's possible\par
+for us to necessarily specify in a precise way\par
+and so we collect a training set of XY examples.\par
+The learning machine takes this training set\par
+and uses it to pick a mapping from X to Y.\par
+A function that takes the image of an animal\par
+and returns the name of the animal,\par
+or it returns the name that it believes to be correct.\par
+Typically, the way a learning algorithm works is\par
+by looking for a function, a mapping,\par
+that does well on the training set.\par
+Now, there are many, many different types\par
+of prediction problems out there\par
+and one way in which it's common\par
+to categorize them is according to the type\par
+of output space,\par
+and there are three cases that we typically distinguish.\par
+When the output space is discrete,\par
+when it's continuous,\par
+and when it consists of probability values.\par
+It turns out that these three cases require\par
+somewhat different methods.\par
+So, let's look at the first case.\par
+So, this is when the outputs are discrete\par
+and this is a case that we call classification.\par
+The simplest setting is binary classification\par
+where there are just two possible outputs,\par
+good or bad, plus or minus, yes or no.\par
+In spam detection, for example,\par
+the inputs X are email messages\par
+and the desired output is just spam or not spam.\par
+There are just two choices, it's binary.\par
+Very often, in classification problems,\par
+there are more than two possible outputs.\par
+So, for instance, maybe the input is a news article\par
+and the desired output is the subject matter\par
+of the article,\par
+politics, business, technology,\par
+sports, entertainment, et cetera.\par
+So, that's called multiclass classification\par
+and there are also cases\par
+in which the desired output is discrete\par
+but it's something more complex\par
+that has some combinatorial structure to it.\par
+In parsing, for example, the input is a sentence,\par
+like John hit the ball,\par
+and the desired output is the parse tree\par
+for that sentence,\par
+so this entire object over here.\par
+So, the output space is still finite,\par
+it's still discrete but it's more complex\par
+and it has a certain kind of structure to it.\par
+What we'll be doing is devoting a large amount\par
+of attention to binary classification\par
+because this is a nice and simple setting\par
+in which to study prediction problems.\par
+It'll then turn out that the methods we develop\par
+can generalize quite easily\par
+to the other two settings as well,\par
+to multiclass and structured outputs.\par
+Okay, so we've been talking about\par
+categorizing prediction problems\par
+by the type of output space,\par
+so when the outputs are discrete,\par
+we call it a classification problem.\par
+When the outputs are continuous,\par
+then we have a regression problem.\par
+Let's look at a couple of examples.\par
+So, the first example here is,\par
+suppose we wanna predict the pollution level tomorrow\par
+and we're interested in this\par
+because, for instance, it will help us decide\par
+whether we are gonna let the kids go out tomorrow\par
+or whether we should keep them indoors.\par
+So, how does one measure pollution level?\par
+Well, one common way of doing it is\par
+by something called the air quality index,\par
+so this is a number, you know.\par
+A positive number that's less than a hundred\par
+means the air quality is not too bad.\par
+If it's more than a hundred,\par
+that means that it's not good,\par
+and if it's more than 200,\par
+it means that the air is absolutely dangerous.\par
+So, the output space now consists\par
+of positive numbers, it's a continuous space.\par
+Even if we only predict integer values,\par
+we still think of it as a continuous space\par
+because, for example, a prediction of a hundred\par
+is very close to a prediction of 101\par
+or a prediction of 102,\par
+and is very far from a prediction of 200.\par
+In other words, the Ys lie on a scale.\par
+Let's look at another example.\par
+Insurance company calculations.\par
+So, one of the things that an insurance company\par
+is interested in when you apply for a policy is\par
+how much longer do they expect you to live,\par
+and this determines, for example,\par
+how much they would charge you.\par
+So here, the number we wanna predict, the Y,\par
+is the age at which you're going to die.\par
+Let's say it's something in the range zero to 120\par
+and again, this is something that we could always round\par
+to the nearest integer,\par
+but we still think of it as a continuum\par
+because these numbers lie along a scale.\par
+Now, one interesting question is\par
+what there is to sort of think about is,\par
+what are suitable predictor variables\par
+for these kinds of regression problems?\par
+Okay, so for example, life expectancy.\par
+What are the sort of variables\par
+or what are the sort of pieces of information\par
+that might be helpful in determining this?\par
+Well, this is actually a very well-studied area\par
+and the sort of information\par
+that people use is your age,\par
+your gender, women tend to live longer,\par
+whether you smoke or not,\par
+do you have high blood pressure\par
+and are you taking medicine for it,\par
+do you have high cholesterol\par
+or are you taking medicine for it,\par
+do you smoke,\par
+and a few other such things.\par
+Okay.\par
+So, the final kind of output space we'll look at is\par
+when the Ys represent probabilities.\par
+So here, the output space\par
+is literally the range zero to one.\par
+Now, this seems a little bit like regression\par
+because it is a continuous range,\par
+but it turns out that this particular case\par
+does require specialized methods\par
+and so we tend to treat it separately.\par
+So, an example here is credit card fraud detection,\par
+so X, the input, consists of the details\par
+of a credit card transaction.\par
+What is the amount of the purchase?\par
+What is being bought?\par
+What is the name of the merchant?\par
+What is the zip code?\par
+And so on.\par
+And Y here, the output we wish to predict,\par
+is what is the probability\par
+that this transaction is fraudulent?\par
+So, this is a probability estimation problem.\par
+One interesting question over here is,\par
+why not just think of this as binary classification?\par
+Why are we trying to predict the probability?\par
+Why not just say there are two possible labels,\par
+fraudulent or legitimate,\par
+and that's what we wanna predict?\par
+So, that's a good question.\par
+It turns out that the reason we wanna use probabilities is\par
+because the results of this prediction are gonna be used\par
+as part of a larger decision-making framework\par
+and it's just one of the pieces of information\par
+that go into the decision.\par
+So, for instance,\par
+if a transaction has got a high probability\par
+of being fraudulent,\par
+then of course the transaction should be denied,\par
+but if the transaction has a low probability\par
+of being fraudulent,\par
+should it be denied or not?\par
+If it has just a small but significant probability\par
+of being fraudulent,\par
+should we accept it or deny it?\par
+Well, it might depend on other factors\par
+like the amount of the transaction.\par
+If it's just a small transaction,\par
+then maybe it's okay to take the risk.\par
+If it's a large transaction,\par
+then it should probably be denied.\par
+So, there are many factors that go into the decision\par
+and in order to assess the risks correctly,\par
+it's very useful to have not just a binary prediction,\par
+fraudulent or legitimate,\par
+but an actual probability value.\par
+Okay, so we've been talking a lot about prediction problems\par
+and indeed, this is the bread and butter\par
+of machine learning,\par
+and we'll be spending a lot of time on this in the course.\par
+Is there anything other than prediction problems?\par
+Well, very often\par
+we see the dataset\par
+and we want to understand it better,\par
+and don't necessarily have a specific\par
+prediction task in mind.\par
+We just want to know,\par
+is there interesting structure in the data?\par
+Are there clusters in it, for example?\par
+So, the sort of topics that come under this,\par
+which we can call representation learning,\par
+are things like clustering, projection,\par
+dictionary learning, and so on.\par
+And we'll spend a little bit of time on this\par
+and we'll end with deep learning,\par
+which is, in a sense, a way of combining\par
+both representation learning\par
+and prediction problems.\par
+Okay, well, that is a little bit\par
+of an overview of the course.\par
+Hopefully it's clear what lies ahead\par
+and next item we'll begin\par
+with the systematic treatment of classification.\par
+End of transcrip\par
+}
+ 

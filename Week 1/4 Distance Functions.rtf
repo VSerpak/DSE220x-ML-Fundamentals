@@ -1,0 +1,384 @@
+{\rtf1\ansi\ansicpg1251\deff0\nouicompat\deflang1058{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 - So when we were discussing\par
+nearest neighbor classification,\par
+we kept emphasizing how important it is\par
+to pick the right distance function.\par
+Now it turns out that distance functions\par
+are critical to many different types of machine learning\par
+and that there are a few distance functions\par
+that keep popping up again and again.\par
+So what we'll be doing today is to look\par
+at two families of such distance functions,\par
+the LP norms and metric spaces.\par
+So let's start with LP norms.\par
+What's a good way to measure distance\par
+in M dimensional Euclidean space?\par
+Well, there's L2 distance, which we saw last time.\par
+If you take out a ruler and you measure\par
+the distance between two points, that's L2 distance.\par
+It's a very simple, intuitive distance function\par
+and in many cases, it's the default choice.\par
+But it turns out that L2 is just one member\par
+of a much larger family of distance functions,\par
+called the LP distances.\par
+And here's the general form of an LP distance.\par
+So p can be any number from one to infinity.\par
+And to compute the LP distance between two vectors,\par
+x and z, you'll look at their difference\par
+along each coordinate, you raise it to the p power,\par
+you add this up across all the coordinates,\par
+and then you take the p root of the whole thing.\par
+So, when you plug in p equals two for example,\par
+you just get back the previous formula,\par
+the Euclidean distance.\par
+But when you plug in a different value of p,\par
+like p equals one, for instance,\par
+you get a different distance function.\par
+For p equals one, you get L1 distance,\par
+which is something that is also\par
+used a lot in machine learning.\par
+Okay, so what is this distance function?\par
+Well, let's say we have two points, x and z,\par
+so this is x, and that's z over there.\par
+L2 distance is just distance as the crow flies,\par
+that's the one we've seen.\par
+That's a very simple distance.\par
+In L1 distance, you also wanna get from x to z,\par
+but you're not allowed to go as the crow flies.\par
+You are forced to go along horizontals and verticals.\par
+Okay, so the L1 distance from x to z is this, plus this.\par
+It's the sum of those two legs.\par
+So mathematically, what we do,\par
+is that we look at the difference along each coordinate,\par
+and we simply add up those differences.\par
+So this is the difference along the first coordinate,\par
+this is the difference along the second coordinate,\par
+and we add those two up and that's L1 distance.\par
+A very important distance function.\par
+Another interesting choice is L infinity distance,\par
+which is the last one here in green.\par
+What L infinity distance does,\par
+is to simply look at the single coordinate\par
+along which the distance between x and z is the greatest.\par
+The single coordinate coordinate\par
+with the largest difference xi minus zi.\par
+So in the case of these two points over here,\par
+z and x, the L infinity distance between them,\par
+would simply be this.\par
+So you might wonder how we can plug in p equal to infinity\par
+in that formula over there.\par
+We can't, p has to be a finite number.\par
+But what we can do is to take larger and larger values\par
+of p and then look at the limit.\par
+And that's how we get our L infinity distance.\par
+Okay, so these are three functions to bear in mind.\par
+L1, L2, and L infinity.\par
+And let's see some examples of these now.\par
+Okay, so let's talk about lengths of vectors.\par
+So the length of a vector is simply\par
+its distance from the origin.\par
+So let's say we have a vector over here, which is all ones,\par
+and this is in D dimensional space.\par
+So the vector consists of D1s.\par
+The length of the vector is its distance from the origin,\par
+from the all zeros point.\par
+And we wanna compute its length\par
+in L2, L1, and L infinity.\par
+So let's do L2 first, since that is\par
+the most familiar distance function.\par
+So we wanna compute the L2 norm of x.\par
+Well, plugging into the formula,\par
+the L2 norm is the square root\par
+of the first coordinate squared\par
+plus the second coordinate squared,\par
+all the way to the Dth coordinate squared.\par
+Okay, so the L2 norm of x, is just the square root of D.\par
+Okay, what about the L1 norm of x.\par
+Let's draw this line over here.\par
+The L1 norm of x is the first coordinate absolute value,\par
+plus the second coordinate,\par
+plus all the way to the Dth coordinate.\par
+And so the L1 norm is D.\par
+Now, let's do the L infinity norm.\par
+The L infinity norm of x is the coordinate\par
+along which the value is the largest,\par
+and in this case, one could pick any of the coordinates.\par
+So the L infinity norm is just one.\par
+So the three norms give very different values.\par
+Let's look at another example.\par
+Okay, so now we are in R2, which is the plane,\par
+and we wanna draw all points whose L2 length is one.\par
+So that's something that you might be familiar with,\par
+that's just a circle, okay?\par
+Every point whose length is one.\par
+So in the L2 case, we have a circle.\par
+The unit circle.\par
+Okay, so this point is one, that point is one,\par
+and formally, what we're looking for,\par
+is all points x1, x2, whose L2 norm is one,\par
+in other words, for which x1 squared plus x2 squared\par
+square root is equal to one.\par
+And this is a circle.\par
+This is the formula for the unit circle.\par
+So that's the familiar case.\par
+Now let's try L1.\par
+So we want all points whose length is one.\par
+So we want all points in the plane,\par
+all points x1, x2, and we want the length to be one.\par
+So the absolute value of x1 plus\par
+the absolute value of x2, equals one.\par
+Let's see what points these are.\par
+Okay so let's draw the plane over here.\par
+Okay, so one example of such a point\par
+is the point 1,0.\par
+Because the coordinates add up to one.\par
+Another one is the point 0,1.\par
+Now we're taking absolute value,\par
+so we can also do -1,0 and 0,-1.\par
+So these are four points that lie on this shape.\par
+But we also have, for example, 1/2,1/2,\par
+which lies in the middle over here.\par
+And when we finally join all these points together,\par
+we see that it looks like this.\par
+It has a diamond shape.\par
+Okay, my diamond is a little bit skewed,\par
+but you can imagine what it's supposed to look like.\par
+So that is the unit ball for the L1 norm.\par
+And what is it for L infinity?\par
+Well, this is what it turns out to be.\par
+Instead of a diamond, it just turns out to be a box.\par
+So that's 0, that's 1, 1, -1.\par
+And maybe you can check for yourself\par
+to see that that's really correct.\par
+Okay, so we've talked a little bit about LP norms.\par
+And these are distance functions that really come up a lot,\par
+especially p equals one to an infinity.\par
+So they're gonna turn out to be very useful.\par
+But there are many situations\par
+in which we need other distance functions.\par
+So for example, distance functions that are fine-tuned\par
+to a particular domain.\par
+Or distance functions between objects\par
+that aren't even vectors.\par
+You know, distance functions between strings or graphs.\par
+These sort of things come up all\par
+the time in machine learning.\par
+So is there a broader family of distances,\par
+something that, for example, can be a distance function\par
+on an arbitrary space, not necessarily a space of vectors?\par
+And there are a few such families,\par
+and perhaps the most important of them are distance metrics.\par
+So let's go over the definition of this.\par
+So we have x which is any data space.\par
+It could consist of vectors.\par
+It could be trees.\par
+It could be strings.\par
+Any space, an arbitrary space.\par
+Now we have a distance function on x,\par
+so it's a distance function where you give it\par
+two objects in x and it returns a value.\par
+You know, maybe 3.6 or something like that.\par
+Now, this distance function is called a metric\par
+if it happens to satisfy four properties.\par
+Four basic properties.\par
+The first is that the distances should never be negative.\par
+That sounds fairly reasonable.\par
+The second is, that the distance\par
+from a point to itself should be zero, and moreover,\par
+these are the only cases in which\par
+the distance should be zero.\par
+So it should not be the case that\par
+the distance between two different points is zero.\par
+The third property is that\par
+the distances should be symmetric.\par
+So the distance from x to y should be\par
+the same as the difference from y to x.\par
+And the final property is the triangle inequality.\par
+So what that says is that if you take any three points,\par
+x, y, and z, then the distance from x to y,\par
+is at most the distance, sorry, the distance from x to z\par
+is at most the distance from x to y,\par
+plus the distance from y to z.\par
+And if that holds,\par
+then it satisfies the triangle inequality.\par
+So, any distance function that happens\par
+to satisfy these four properties is called a metric.\par
+And if we find that the distance function\par
+that we are using is a metric, it's useful,\par
+because there are all sorts of things we can do with it.\par
+For example, last time, we talked about\par
+methods for fast nearest neighbor search.\par
+These data structures like ball trees\par
+and k-d trees and locality-sensitive hashing and so on.\par
+Now, many of those methods work only for Euclidean distance.\par
+Work only if you're doing nearest neighbors\par
+in Euclidean space.\par
+But some of them work for arbitrary metrics.\par
+So if the distance function you've chosen\par
+happens to be a metric, then you can use these\par
+to do fast nearest neighbor search.\par
+So, it's very useful to be able\par
+to choose distances that are metrics.\par
+So let's look at some examples\par
+of metric distances.\par
+And the first example is the LP norms.\par
+It turns out that any LP distance is a metric.\par
+So let's pick one concretely.\par
+Let's say L1 distance.\par
+So let's say that the distance between two points\par
+is the L1 distance, and let's say that the points\par
+are in M dimensional space.\par
+So we take the sum over the M coordinates\par
+of the difference between the two vectors\par
+along that coordinate.\par
+That's the L1 distance.\par
+Why is this a metric?\par
+Well, in order to check that,\par
+we just have to go down those four properties\par
+and check them one by one.\par
+So first of all, is this, can this ever be negative?\par
+No, because of the absolute value.\par
+So first property is okay.\par
+If x equals y, is this zero?\par
+Yeah, if x equals y, this is zero.\par
+If this is zero, does that mean x equals y?\par
+Well, if this thing is zero,\par
+it means that all of these absolute values are zero,\par
+which means that x is equal to y.\par
+The second property's fine as well.\par
+Symmetry, is the distance from x to y\par
+the same as the difference from y to x, yes.\par
+And what about the triangle inequality?\par
+Does L1 distance satisfy the triangle inequality?\par
+Well, one thing that's definitely true\par
+is that if you look at any one coordinate,\par
+the distance, the difference between xi and zi\par
+is at most the difference between xi and yi\par
+plus the difference between yi and zi.\par
+And now, we just sum over all coordinates.\par
+And that gives us the triangle inequality.\par
+So L1 distance satisfies all the properties of a metric,\par
+and all the LP distances do.\par
+Okay, now let's look at an example\par
+where the input space does not consist of vectors.\par
+So let's say that we're dealing with strings\par
+over some alphabet.\par
+For instance, if we are dealing with DNA sequences,\par
+then what we have are strings over A, C, G, and T.\par
+That's the input space.\par
+What the star means is strings of arbitrary length\par
+over this alphabet.\par
+So we have two strings.\par
+Let's say A-C-C-G-T\par
+and C-C-G-T.\par
+So we have these two strings.\par
+And now we want a distance function.\par
+What is the distance between x and y?\par
+Now there are many ways in which we can define this,\par
+but from the biologist's point of view,\par
+they will look at these two, and say,\par
+"Well, you know, actually, these are very similar\par
+"because you can get from x to y by just deleting A."\par
+If you were to remove A, they become the same.\par
+Or equivalently, if you were to take y,\par
+and just insert an A at the beginning,\par
+you would get x.\par
+So this kind of distance function\par
+that takes into account insertions, deletions,\par
+and also substitutions, is called edit distance.\par
+And it turns out that it's a metric.\par
+So let's just define it.\par
+The edit distance between two strings, x and y,\par
+is the number of insertions, deletions, and substitutions\par
+needed to get from x to y.\par
+So why is this a metric?\par
+Well, once again, we just have to go through the properties.\par
+So first of all, is it always positive?\par
+Yes.\par
+Is it the case that it's zero if and only if x equals y?\par
+Again, obviously, yes.\par
+Is it symmetric?\par
+Is the number of steps to go from x to y,\par
+the number of insertions, deletions, and substitutions\par
+to go from x to y the same as to go from y to x?\par
+Yes, it is, because a deletion is\par
+the reverse operation of an insertion.\par
+And finally, does it satisfy the triangle inequality?\par
+It does and that's something you can also convince yourself.\par
+So here's an example of a distance function\par
+that's really over a fairly arbitrary space.\par
+A distance function between strings,\par
+but it turns out to be a metric,\par
+which means that we can do all sorts of nice things with it.\par
+So the properties of a metric seem really minimal.\par
+It should be nonnegative.\par
+It should be symmetric.\par
+Should satisfy the triangle inequality.\par
+I mean, would we ever want to use\par
+a distance function that's not a metric?\par
+And, unfortunately, it turns out the answer is yes.\par
+And here, what I've shown here\par
+is the prototypical example of a distance function\par
+that's very widely used and is nothing\par
+close to being a metric.\par
+This is the relative entropy, or the K-L divergence\par
+and it's one of the most standard distance functions\par
+between probability vectors.\par
+So what's a probability vector?\par
+Well, a probability vector is just a vector\par
+that gives probabilities over different outcomes.\par
+So let's say we have four possible outcomes.\par
+An example of a probability vector\par
+is something like 1/2, 1/4, 1/8, 1/8.\par
+It says the probability of outcome one is 1/2.\par
+The probability of outcome two is 1/4.\par
+The probability of outcome three is 1/8.\par
+The probability of outcome four is 1/8.\par
+So it's a bunch of positive numbers that add up to one.\par
+And another probability vector over these four outcomes\par
+might be 1/6, 1/3, 1/3, 1/6.\par
+So how do we measure the distance between\par
+these two probability distributions?\par
+Well, one very natural way of doing that\par
+would be simply to look at the L1 distance\par
+between the vectors p and q.\par
+Or the L2 distance.\par
+And both of those are perfectly reasonable choices.\par
+But, it turns out that in machine learning,\par
+very very often, the distance measure of choice\par
+is the K-L divergence,\par
+which is summarized in this formula over here.\par
+So let's see what that works out to in this case.\par
+So the distance between p and q\par
+is the sum over all coordinates,\par
+so we're now gonna sum over the four coordinates.\par
+The first coordinate, we take 1/2 log 1/2 over 1/6.\par
+So we're looking at the first coordinate over here.\par
+We're comparing the two numbers 1/2 and 1/6.\par
+Now we look at the second coordinate.\par
+We get 1/4, that's p of x, log,\par
+p of x is 1/4, over 1/3\par
+plus 1/8 log 1/8 over 1/3,\par
+plus 1/8 log 1/8 over 1/6.\par
+Very strange.\par
+Now, thankfully, it turns out,\par
+that this can never be negative.\par
+But that's about where the good news ends.\par
+This is not a symmetric distance.\par
+So the distance from p to q is in general\par
+not the same as the difference from q to p.\par
+And it doesn't come close to satisfying\par
+the triangle inequality.\par
+But, it's a distance function we use all the time.\par
+Okay, so what we've done today\par
+is to talk a little bit about distance functions,\par
+and to be honest, we've really just scratched\par
+the surface in terms of organizing\par
+the space of possible distances.\par
+Now complementary to distance functions\par
+are similarity functions.\par
+And that's something that we'll be seeing\par
+a lot more of later on in the course.\par
+}
+ 

@@ -1,0 +1,196 @@
+{\rtf1\ansi\ansicpg1251\deff0\nouicompat\deflang1058{\fonttbl{\f0\fnil\fcharset0 Calibri;}}
+{\*\generator Riched20 10.0.16299}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\f0\fs22\lang9 - So today, we will get a feel for machine learning\par
+by looking at one of the oldest\par
+and most enduring methods of classification:\par
+Nearest Neighbor.\par
+This will let us understand what\par
+a classification problem is and also\par
+introduce some basic machine learning terminology\par
+like training set, test set,\par
+training error, and test error.\par
+We'll see how data can be represented as vectors\par
+and Euclidean space and how we can compute\par
+distances in spaces like this.\par
+All this will give us the background we need\par
+to put the nearest neighbor classifier into action.\par
+So, the specific problem we will solve today\par
+is the following.\par
+We're given a picture or image of a handwritten digit\par
+and we want to say what digit it is.\par
+This, for example, is a three.\par
+Here are some more examples: we have a zero,\par
+a one, a two, and so on and so forth.\par
+So how might we approach this problem?\par
+Here's an idea.\par
+A zero has got one loop in it.\par
+An eight has got two loops.\par
+A one has a single straight line.\par
+A four has three straight lines, and so on.\par
+What if we had a piece of software that took an image\par
+and figured out how many loops it had\par
+and how many straight lines, and also the relative positions\par
+of these loops and straight lines.\par
+Maybe we could then use this information\par
+and write down a bunch of simple rules\par
+to decide what digit it is.\par
+Actually, people tried this a long time ago\par
+and they ran into a lot of problems.\par
+So first of all, handwritten digits are super noisy\par
+and so it's hard to robustly pull out this information\par
+about the loops and lines and so on.\par
+Then, there's a lot of variability\par
+in the way people write fours, sevens, nines, et cetera.\par
+What this meant was that a huge number of rules were needed\par
+to account for all the different special cases\par
+and then, after all this trouble,\par
+the systems didn't really work well at all.\par
+So what we'll look at today is\par
+an entirely different approach,\par
+the machine learning approach.\par
+Rather than trying to figure out\par
+the underlying patterns ourselves,\par
+we'll just let the machine do it for us.\par
+Now, in order to figure out the patterns,\par
+what the machine needs above all else\par
+is a huge amount of data.\par
+So what we do, is we assemble a large data set\par
+of handwritten digit images,\par
+each labeled with its correct image, with the correct digit.\par
+So the MNIST data set has got\par
+60,000 images of handwritten digits.\par
+Here's a smattering of them.\par
+And we can use this training set to learn a classifier.\par
+A function that takes an image and then outputs\par
+what digit it thinks it is.\par
+MNIST also has a separate test set of 10,000 images\par
+along with their labels, and we can use this test set\par
+to assess how good our classifier really is.\par
+So what kind of classifiers might we try?\par
+Well, the simplest one imaginable perhaps,\par
+is Nearest Neighbor.\par
+What happens in this case is that\par
+when we get a new image to classify,\par
+say this one over here, we get some new image X.\par
+We go through our training set of 60,000 images\par
+and we find the one that's closest to X.\par
+Then we simply return the label of that image.\par
+That's it.\par
+Now, there are some details that we have to work out.\par
+If we are looking for the one that's closest to X,\par
+it means we have some notion of distance between images.\par
+How are we representing images on the computer anyway?\par
+So let's look into that.\par
+So first off, we will represent images as vectors, okay?\par
+Now an MNIST image is 28 pixels by 28.\par
+So it's 28 pixels across, 28 pixels high.\par
+That means the total number of pixels\par
+is 28 and 28 which is 784.\par
+And each pixel is grayscale.\par
+So it's a value in the range zero to 255\par
+where zero means black and 255 means white.\par
+For example, the pixels in the upper corner over here\par
+are all zero, whereas some of the pixels\par
+in the middle over here are probably much closer to 255.\par
+What we'll do with an image like this\par
+in order to make it into a vector is to\par
+simply stretch it out into one long, 784 dimensional vector.\par
+Something like this, okay?\par
+And how do we stretch it out?\par
+Well, we begin by just copying down the first row.\par
+So we copy down the first row over here.\par
+Then we copy down the second row.\par
+And all the way to the last row.\par
+So these initial positions are all zeros.\par
+Somewhere in the middle, we have numbers like 200\par
+and towards the end, we have zeros again.\par
+So we've taken the image and converted it into\par
+a 784 dimensional vector.\par
+Our data space then, which we're gonna denote by script X\par
+is 784 dimensional Euclidean space\par
+and we'll often write it like this: R to the 784th.\par
+The label space just consists of\par
+the possible labels, zero to nine.\par
+Now that we have a specific vector representation,\par
+we also have to decide how we're going to compute distances\par
+between vectors and the most common, or default distance\par
+function is perhaps just Euclidean distance.\par
+So let's recall how this works in two dimensions.\par
+When you have two points, the Euclidean distance\par
+between them is just the length of the line connecting them.\par
+So it's the length of this line.\par
+And what is that length?\par
+Well, if you look at these two points, X and Z,\par
+along the first coordinate, they defer by two\par
+and along the second coordinate, they defer by three.\par
+So the length of the line, the distance from X to Z\par
+is simply the square root of two squared plus three squared\par
+which is the square root of 13.\par
+That's the Euclidean distance between X and Z\par
+in two dimensions, okay?\par
+Now of course we aren't working in two dimensions.\par
+We're working in a much higher dimensional space\par
+but the basic idea is the same.\par
+When you want to compute the distance\par
+between two vectors, X and Z, you simply find out\par
+how much they differ on each individual coordinate,\par
+you square these values, you add them up\par
+and then you take the square root of the whole thing.\par
+That's Euclidean distance.\par
+Good.\par
+So now we have a representation of the images\par
+as vectors in 784 dimensional space\par
+and we have a distance function between images.\par
+So we're ready to use nearest neighbor.\par
+Each time we get a new image,\par
+we simply find its nearest neighbor\par
+using Euclidean distance in 784 dimensional space\par
+and we return the label of this training image.\par
+So how good is this classifier?\par
+Well, let's look at some numbers.\par
+First of all, what is the error rate\par
+of the classifier on the training points?\par
+So we have these 60,000 training images.\par
+For any training point, its nearest neighbor\par
+in the training set is itself.\par
+So it'll definitely get the right label.\par
+So the error rate on the training set is zero.\par
+What that means is that training error\par
+is not a good predictor of future performance.\par
+It in general is something that is overly optimistic.\par
+That's why we have a separate test set.\par
+If we compute the error on those separate 10,000 points,\par
+that's really a much better indication\par
+of how well this classifier is gonna perform in practice.\par
+Now, what kind of test error might we expect?\par
+Well, let's do a little tore experiment.\par
+Suppose that we use the classifier\par
+that was completely random.\par
+When it was given an image, it didn't even look at the image\par
+but just randomly chose a number from zero to nine.\par
+What would be the error rate of a classifier like this?\par
+Well, whatever the correct label is,\par
+the chance that it randomly picks\par
+that correct label is 10%.\par
+So a random classifier has got an error rate of 90%.\par
+We certainly want to do better than that.\par
+Now let's see how well nearest neighbor does.\par
+On the test set, its error rate is 3.09%.\par
+That means that out of the 10,000 points,\par
+it gets 309 of them wrong.\par
+That's not too bad for such a simple method.\par
+Let's look at some of the mistakes that it makes.\par
+This query, for example.\par
+When it was looking for its nearest neighbor,\par
+this is the point it found.\par
+So it thought it was a four.\par
+Look at this one.\par
+Its nearest neighbor in the training set\par
+turned out to be this point and so it thought\par
+it was an eight, and so on and so forth.\par
+These errors are all quite understandable\par
+once you see what the nearest neighbor classifier is doing.\par
+So, we have our first classifier now.\par
+And next time, we'll see how to make it better.\par
+}
+ 
