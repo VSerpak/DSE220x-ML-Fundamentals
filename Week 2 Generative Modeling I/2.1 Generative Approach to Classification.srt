@@ -1,0 +1,456 @@
+0
+00:00:02,471 --> 00:00:06,075
+- So today we will introduce a simple and powerful approach
+
+1
+00:00:06,075 --> 00:00:07,953
+to building classifiers.
+
+2
+00:00:07,953 --> 00:00:09,875
+It's called the generative approach
+
+3
+00:00:09,875 --> 00:00:14,213
+and it's based on probability distributions.
+
+4
+00:00:14,213 --> 00:00:16,382
+So the main idea with the generative approach
+
+5
+00:00:16,382 --> 00:00:18,965
+is to fit each class separately
+
+6
+00:00:21,044 --> 00:00:22,922
+with a probability distribution.
+
+7
+00:00:22,922 --> 00:00:23,755
+Okay?
+
+8
+00:00:23,755 --> 00:00:25,922
+So for example, here we have a training set
+
+9
+00:00:25,922 --> 00:00:28,846
+of about 15-20 points and what we do
+
+10
+00:00:28,846 --> 00:00:31,950
+is that we first look only at one label,
+
+11
+00:00:31,950 --> 00:00:34,211
+so here there are two labels, pluses and minuses.
+
+12
+00:00:34,211 --> 00:00:36,746
+So we start by looking just at the pluses
+
+13
+00:00:36,746 --> 00:00:38,584
+and we fit a model to them.
+
+14
+00:00:38,584 --> 00:00:41,338
+And then we look only at the minuses,
+
+15
+00:00:41,338 --> 00:00:43,340
+and we fit a model to those.
+
+16
+00:00:43,340 --> 00:00:46,911
+So maybe we get something like this.
+
+17
+00:00:46,911 --> 00:00:50,872
+So on the left, we have an ellipse shape distribution
+
+18
+00:00:50,872 --> 00:00:52,869
+that we fit to the pluses
+
+19
+00:00:52,869 --> 00:00:56,650
+and then we have another ellipse shaped distribution
+
+20
+00:00:56,650 --> 00:00:58,695
+that we fit into the minuses.
+
+21
+00:00:58,695 --> 00:01:01,362
+That's a total learning process.
+
+22
+00:01:02,662 --> 00:01:04,966
+Now, when a new point comes along,
+
+23
+00:01:04,966 --> 00:01:09,133
+say, a point like this, and we want to classify it,
+
+24
+00:01:10,482 --> 00:01:12,018
+we just ask ourselves
+
+25
+00:01:12,018 --> 00:01:15,632
+Was this new point more likely to have come
+
+26
+00:01:15,632 --> 00:01:19,264
+from the red distribution or the blue distribution?
+
+27
+00:01:19,264 --> 00:01:21,278
+Under which of these two distributions
+
+28
+00:01:21,278 --> 00:01:23,748
+does it have higher probability?
+
+29
+00:01:23,748 --> 00:01:25,344
+And that's it.
+
+30
+00:01:25,344 --> 00:01:27,554
+Okay, so that's a high level overview
+
+31
+00:01:27,554 --> 00:01:29,804
+of the generative approach.
+
+32
+00:01:31,019 --> 00:01:32,862
+So let's, let's be a little bit more concrete
+
+33
+00:01:32,862 --> 00:01:35,029
+and put down some details.
+
+34
+00:01:36,282 --> 00:01:39,561
+Okay, so here's a picture in which
+
+35
+00:01:39,561 --> 00:01:43,074
+there are three classes, or three labels.
+
+36
+00:01:43,074 --> 00:01:44,955
+Let's call them one, two, and three.
+
+37
+00:01:44,955 --> 00:01:48,440
+So the label space y is just the set one, two, and three.
+
+38
+00:01:48,440 --> 00:01:51,243
+And let's say that the data is very simple.
+
+39
+00:01:51,243 --> 00:01:52,911
+The data just has one feature,
+
+40
+00:01:52,911 --> 00:01:54,799
+so the data points are one-dimensional
+
+41
+00:01:54,799 --> 00:01:58,387
+and they can just be plotted on the line.
+
+42
+00:01:58,387 --> 00:02:00,141
+So in order to fit a generative model,
+
+43
+00:02:00,141 --> 00:02:04,146
+what we do, is we take our training set
+
+44
+00:02:04,146 --> 00:02:07,892
+and first we look only at the points whose label is one,
+
+45
+00:02:07,892 --> 00:02:10,706
+and we fit a probability distribution to them.
+
+46
+00:02:10,706 --> 00:02:14,120
+So maybe, for example, we get this distribution over here,
+
+47
+00:02:14,120 --> 00:02:15,453
+the red one, okay?
+
+48
+00:02:15,453 --> 00:02:17,290
+Let's call that one P1(x).
+
+49
+00:02:17,290 --> 00:02:19,458
+The distribution for label one.
+
+50
+00:02:19,458 --> 00:02:22,786
+Then, we take the training set again,
+
+51
+00:02:22,786 --> 00:02:25,703
+and look only at the points whose label is two,
+
+52
+00:02:25,703 --> 00:02:28,572
+and we fit a probability distribution to those.
+
+53
+00:02:28,572 --> 00:02:31,531
+Maybe that looks like P2(x) over here.
+
+54
+00:02:31,531 --> 00:02:34,236
+And finally we look at the remaining points,
+
+55
+00:02:34,236 --> 00:02:35,912
+the ones that have labeled three,
+
+56
+00:02:35,912 --> 00:02:38,171
+and we get a probability distribution to that.
+
+57
+00:02:38,171 --> 00:02:39,719
+So that's P3(x).
+
+58
+00:02:39,719 --> 00:02:41,562
+And now we have these three separate
+
+59
+00:02:41,562 --> 00:02:43,399
+probability distributions.
+
+60
+00:02:43,399 --> 00:02:46,616
+We need a little bit more information, as well.
+
+61
+00:02:46,616 --> 00:02:49,866
+Let's say, for instance, that label one
+
+62
+00:02:50,866 --> 00:02:54,069
+makes up 10% of the training set.
+
+63
+00:02:54,069 --> 00:02:56,931
+So out of the training points,
+
+64
+00:02:56,931 --> 00:02:59,287
+one tenth of them have label one.
+
+65
+00:02:59,287 --> 00:03:03,454
+So what we'll do is say Pi(1) equals 10% or .1.
+
+66
+00:03:04,385 --> 00:03:06,966
+Let's say label two makes up 50% of the training set.
+
+67
+00:03:06,966 --> 00:03:11,220
+So we'll say Pi(2) equals 50% or .5
+
+68
+00:03:11,220 --> 00:03:13,975
+and the remaining 40% of the training set
+
+69
+00:03:13,975 --> 00:03:15,530
+comes from label three.
+
+70
+00:03:15,530 --> 00:03:19,197
+So, we say Pi(3) equals .4.
+
+71
+00:03:20,622 --> 00:03:23,955
+Now, at the end of this, what we have is
+
+72
+00:03:25,772 --> 00:03:27,578
+the following pieces of information.
+
+73
+00:03:27,578 --> 00:03:30,929
+For each class, j, so j is one, two, or three,
+
+74
+00:03:30,929 --> 00:03:33,150
+we have the probability of that class,
+
+75
+00:03:33,150 --> 00:03:36,733
+which is just a number, like .1, .5, or .4,
+
+76
+00:03:39,189 --> 00:03:44,088
+and we also have the distribution of data in that class,
+
+77
+00:03:44,088 --> 00:03:46,511
+which is what we have been calling P sub j,
+
+78
+00:03:46,511 --> 00:03:48,678
+P set 1, P set 2, P set 3.
+
+79
+00:03:49,923 --> 00:03:53,097
+And these pieces are built information are enough
+
+80
+00:03:53,097 --> 00:03:57,264
+to fully specify the joint distribution between x and y.
+
+81
+00:03:58,794 --> 00:04:02,044
+So the probability of any pair, x y,
+
+82
+00:04:04,175 --> 00:04:07,175
+is the probability of that label, y,
+
+83
+00:04:08,104 --> 00:04:12,271
+times the probability of seeing data x under that label y.
+
+84
+00:04:14,230 --> 00:04:16,768
+So the probability of x given y.
+
+85
+00:04:16,768 --> 00:04:19,320
+Now the probability of seeing label y
+
+86
+00:04:19,320 --> 00:04:20,820
+is simply Pi sub y
+
+87
+00:04:22,525 --> 00:04:25,113
+and the probability of seeing point x
+
+88
+00:04:25,113 --> 00:04:29,594
+under the distribution of label y, is P sub y of x.
+
+89
+00:04:29,594 --> 00:04:32,473
+So we have the full probability distribution
+
+90
+00:04:32,473 --> 00:04:34,302
+over x and y.
+
+91
+00:04:34,302 --> 00:04:38,519
+So now a new point x comes along and we want to classify it.
+
+92
+00:04:38,519 --> 00:04:42,091
+We want to determine a label, y, for it.
+
+93
+00:04:42,091 --> 00:04:43,671
+Which label do we pick?
+
+94
+00:04:43,671 --> 00:04:45,583
+Well, the mostly likely label,
+
+95
+00:04:45,583 --> 00:04:49,750
+the one that maximizes the probability of x and y.
+
+96
+00:04:51,044 --> 00:04:53,041
+Concretely, what we would do in this case,
+
+97
+00:04:53,041 --> 00:04:55,589
+with three classes, is that we take our point x
+
+98
+00:04:55,589 --> 00:04:59,756
+and we calculate Pi one times P1(x) and that's some number.
+
+99
+00:05:02,427 --> 00:05:06,467
+We calculate Pi two times P2(x)
+
+100
+00:05:06,467 --> 00:05:10,634
+and we calculate Pi three times P3(x).
+
+101
+00:05:11,853 --> 00:05:15,686
+And we take whichever of these is the largest.
+
+102
+00:05:17,131 --> 00:05:19,254
+If the last one is the largest, for example,
+
+103
+00:05:19,254 --> 00:05:22,421
+we say the label equals three.
+
+104
+00:05:22,421 --> 00:05:25,921
+Okay, so that's it for a high-level overview
+
+105
+00:05:25,921 --> 00:05:28,289
+of the generative approach to classification.
+
+106
+00:05:28,289 --> 00:05:30,957
+Some of the details might seem a little mysterious
+
+107
+00:05:30,957 --> 00:05:32,999
+at this point because they rest
+
+108
+00:05:32,999 --> 00:05:36,074
+on various probabilistic concepts.
+
+109
+00:05:36,074 --> 00:05:39,044
+So what we'll do next is to do a little bit of a review,
+
+110
+00:05:39,044 --> 00:05:41,891
+a little bit of a tour, of the relevant probability
+
+111
+00:05:41,891 --> 00:05:44,007
+and then we'll come back and we'll flesh out
+
+112
+00:05:44,007 --> 00:05:46,605
+this approach and see it in action.
+
+113
+00:05:46,605 --> 00:05:47,438
+Thank you.
+
